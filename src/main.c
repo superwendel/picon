@@ -2,18 +2,22 @@ int main(int argc, char* argv[])
 {
 	Init_SDL();
 
-	SDL_Event e;
-    i32 running = 1;
-    while (running) 
+    while (1) 
 	{
-        while (SDL_PollEvent(&e)) 
+		u32 frameStart = SDL_GetTicks();
+
+		Input_Poll();
+		//Update
+		//Render
+
+        u32 frameTime = SDL_GetTicks() - frameStart;
+
+        if (frameTime < FRAME_TIME_MS) 
 		{
-            if (e.type == SDL_QUIT) 
-			{
-                running = 0;
-            }
+            SDL_Delay(FRAME_TIME_MS - frameTime);
         }
     }
 
 	Exit();
+	return 0;
 }

@@ -1,5 +1,10 @@
+#define TARGET_FPS 60
+#define FRAME_TIME_MS (1000 / TARGET_FPS)
+
 #define MAX_SND_CHANNELS 16
 
+#define WINDOW_WIDTH 320
+#define WINDOW_HEIGHT 180
 
 typedef unsigned char u8;
 typedef unsigned short u16;
@@ -19,6 +24,8 @@ typedef _Bool b8;
 
 #define true 1
 #define false 0
+
+typedef size_t memory_index;
 
 // Properly define static assertions.
 #if defined(__clang__) || defined(__gcc__)
