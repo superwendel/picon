@@ -5,6 +5,8 @@
 
 #define WINDOW_WIDTH 320
 #define WINDOW_HEIGHT 180
+#define PERSISTENT_ARENA_SIZE 1024 * 1024 // 1 MB
+
 
 typedef unsigned char u8;
 typedef unsigned short u16;
@@ -24,8 +26,6 @@ typedef _Bool b8;
 
 #define true 1
 #define false 0
-
-typedef size_t memory_index;
 
 // Properly define static assertions.
 #if defined(__clang__) || defined(__gcc__)

@@ -4,7 +4,7 @@ void Input_Poll(void)
     while (SDL_PollEvent(&event)) {
         switch (event.type) {
             case SDL_QUIT:
-                //game_is_running = false;
+				Exit();
                 break;
             case SDL_KEYDOWN:
                 if (event.key.keysym.sym == SDLK_ESCAPE) 

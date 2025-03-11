@@ -10,5 +10,5 @@
 
 #include "init.c"
 #include "input.c"
-#include "main.c"
 #include "arena.c"
+#include "main.c"
