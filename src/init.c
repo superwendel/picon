@@ -1,5 +1,5 @@
-SDL_Renderer* renderer;
-SDL_Window* window;
+extern SDL_Renderer* renderer;
+extern SDL_Window* window;
 
 void Exit(void);
 
@@ -27,13 +27,11 @@ PINLINE void Init_SDL()
 
 	Mix_AllocateChannels(MAX_SND_CHANNELS);
 
-
     window = SDL_CreateWindow("picon",
                               SDL_WINDOWPOS_CENTERED,
                               SDL_WINDOWPOS_CENTERED,
                               WINDOW_WIDTH * 4, WINDOW_HEIGHT * 4,
                               windowFlags);
-
 
     if (!window) 
 	{
@@ -41,7 +39,7 @@ PINLINE void Init_SDL()
 		Exit();
     }
 
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if (!renderer) 
 	{
         printf("Renderer could not be created! SDL_Error: %s\n", SDL_GetError());
@@ -63,10 +61,6 @@ PINLINE void Init_SDL()
 	}
 
 	SDL_ShowCursor(0);
-
-    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
-    SDL_RenderClear(renderer);
-    SDL_RenderPresent(renderer);
 }
 
 void Exit()

@@ -8,7 +8,8 @@
 #include "defs.h"
 #include "structs.h"
 
+#include "arena.c"
 #include "init.c"
 #include "input.c"
-#include "arena.c"
+#include "draw.c"
 #include "main.c"
