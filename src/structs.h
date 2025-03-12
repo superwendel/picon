@@ -2,18 +2,19 @@ typedef struct
 {
 	i32 x;
 	i32 y;
-} vec2;
+} v2;
 
 typedef struct
 {
-	SDL_Renderer *renderer;
-	SDL_Window *window;
-} app;
+	i32 up;
+	i32 down;
+	i32 left;
+	i32 right;
+} App;
 
 typedef struct
-{
-	i32 x;
-	i32 y;
+{ 
+	v2 position;
 	SDL_Texture *texture;
 } Entity;
 

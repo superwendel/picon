@@ -6,6 +6,8 @@ SDL_Window* window;
 
 Entity *player;
 
+App app;
+
 int main(int argc, char* argv[]) 
 {
 	Init_SDL();
@@ -15,12 +17,15 @@ int main(int argc, char* argv[])
 
 	player = (Entity *)Arena_Alloc(&persistentArena, sizeof(Entity));
 
-    if (player) {
-        player->x = 50;
-        player->y = 50;
+    if (player) 
+	{
+		player->position.x = 50;
+ 			player->position.y = 50;
 		player->texture = Texture_Load("gfx/SubTest.png");
-        printf("Player position: (%d, %d)\n", player->x, player->y);
-    } else {
+        printf("Player position: (%d, %d)\n", player->position.x, player->position.y);
+    } 
+	else 
+	{
         printf("Failed to allocate persistent memory.\n");
     }
 
@@ -30,7 +35,28 @@ int main(int argc, char* argv[])
 
 		Scene_Prepare();
 		Input_Poll();
-		Blit(player->texture, player->x, player->y);
+
+		if (app.up)
+        {
+            player->position.y -= 4;
+        }
+
+        if (app.down)
+        {
+            player->position.y  += 4;
+        }
+
+        if (app.left)
+        {
+            player->position.x  -= 4;
+        }
+
+        if (app.right)
+        {
+            player->position.x += 4;
+        }
+
+		Blit(player->texture, player->position.x, player->position.y);
 		Scene_Present();
 		//Update
 		//Render

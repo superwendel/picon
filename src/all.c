@@ -7,6 +7,7 @@
 
 #include "defs.h"
 #include "structs.h"
+#include "pmath.h"
 
 #include "arena.c"
 #include "init.c"
