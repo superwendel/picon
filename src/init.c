@@ -15,7 +15,7 @@ PINLINE void Init_SDL()
 
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK) < 0) 
 	{
-        printf("SDL could not init! SDL_Error: %s\n", SDL_GetError());
+        printf("SDL not init! SDL_Error: %s\n", SDL_GetError());
 		Exit();
     }
 
@@ -35,14 +35,14 @@ PINLINE void Init_SDL()
 
     if (!window) 
 	{
-        printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
+        printf("Window not created! SDL_Error: %s\n", SDL_GetError());
 		Exit();
     }
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if (!renderer) 
 	{
-        printf("Renderer could not be created! SDL_Error: %s\n", SDL_GetError());
+        printf("Renderer not created! SDL_Error: %s\n", SDL_GetError());
         SDL_DestroyWindow(window);
         Exit();
     }
@@ -60,7 +60,7 @@ PINLINE void Init_SDL()
 		exit(1);
 	}
 
-	SDL_ShowCursor(0);
+	//SDL_ShowCursor(0);
 }
 
 void Exit()

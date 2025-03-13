@@ -3,7 +3,7 @@ extern SDL_Window* window;
 
 void Scene_Prepare(void)
 {
-	SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+	SDL_SetRenderDrawColor(renderer, 15, 89, 102, 255);
     SDL_RenderClear(renderer);
 }
 

@@ -10,11 +10,14 @@ typedef struct
 	i32 down;
 	i32 left;
 	i32 right;
+	i32 fire;
 } App;
 
 typedef struct
 { 
 	v2 position;
+	v2 delta;
+	i32 health;
 	SDL_Texture *texture;
 } Entity;
 
