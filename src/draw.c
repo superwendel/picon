@@ -1,13 +1,13 @@
 extern SDL_Renderer* renderer;
 extern SDL_Window* window;
 
-void Scene_Prepare(void)
+PINLINE void Scene_Prepare(void)
 {
 	SDL_SetRenderDrawColor(renderer, 15, 89, 102, 255);
     SDL_RenderClear(renderer);
 }
 
-void Scene_Present(void)
+PINLINE void Scene_Present(void)
 {
 	SDL_RenderPresent(renderer);
 }

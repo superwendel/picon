@@ -30,7 +30,7 @@ PINLINE void Init_SDL()
     window = SDL_CreateWindow("picon",
                               SDL_WINDOWPOS_CENTERED,
                               SDL_WINDOWPOS_CENTERED,
-                              WINDOW_WIDTH * 4, WINDOW_HEIGHT * 4,
+                              WINDOW_WIDTH * 8, WINDOW_HEIGHT * 8,
                               windowFlags);
 
     if (!window) 

@@ -1,72 +1,78 @@
 extern App app;
+extern i32 selectedChoice;
+extern i32 currentEvent;
+extern bool displayChoices;
+extern bool showResult;
+extern StoryEvent events[];
+extern Submarine *player;
 
-void doKeyUp(SDL_KeyboardEvent *event)
+void doKeyUp(SDL_KeyboardEvent *e)
 {
-    if (event->repeat == 0)
+    if (e->repeat == 0)
     {
-        if (event->keysym.scancode == SDL_SCANCODE_UP)
+        if (e->keysym.scancode == SDL_SCANCODE_UP)
         {
             app.up = 0;
         }
 
-        if (event->keysym.scancode == SDL_SCANCODE_DOWN)
+        if (e->keysym.scancode == SDL_SCANCODE_DOWN)
         {
             app.down = 0;
         }
 
-        if (event->keysym.scancode == SDL_SCANCODE_LEFT)
+        if (e->keysym.scancode == SDL_SCANCODE_LEFT)
         {
             app.left = 0;
         }
 
-        if (event->keysym.scancode == SDL_SCANCODE_RIGHT)
+        if (e->keysym.scancode == SDL_SCANCODE_RIGHT)
         {
             app.right = 0;
         }
 
-		if (event->keysym.scancode == SDL_SCANCODE_LCTRL)
+		if (e->keysym.scancode == SDL_SCANCODE_LCTRL)
         {
             app.fire = 0;
         }
     }
 }
 
-void doKeyDown(SDL_KeyboardEvent *event)
+void doKeyDown(SDL_KeyboardEvent *e)
 {
-    if (event->repeat == 0)
-    {
-        if (event->keysym.scancode == SDL_SCANCODE_UP)
-        {
-            app.up = 1;
-        }
-
-        if (event->keysym.scancode == SDL_SCANCODE_DOWN)
-        {
-            app.down = 1;
-        }
-
-        if (event->keysym.scancode == SDL_SCANCODE_LEFT)
-        {
-            app.left = 1;
-        }
-
-        if (event->keysym.scancode == SDL_SCANCODE_RIGHT)
-        {
-            app.right = 1;
-        }
-
-		if (event->keysym.scancode == SDL_SCANCODE_LCTRL)
-        {
-            app.fire = 1;
-        }
-
-		if (event->keysym.scancode == SDL_SCANCODE_ESCAPE) 
+	if (displayChoices) 
+	{
+		if (e->keysym.sym == SDLK_DOWN) 
 		{
-			Exit();
+			selectedChoice = (selectedChoice + 1) % 4;
 		}
-    }
-}
+		
+		else if (e->keysym.sym == SDLK_UP) 
+		{
+			selectedChoice = (selectedChoice - 1 + 4) % 4;
+		} 
+		
+		else if (e->keysym.sym == SDLK_RETURN) 
+		{
+			submarine->oxygen += events[currentEvent].oxygenEffect[selectedChoice];
+			submarine->hull += events[currentEvent].hullEffect[selectedChoice];
+			submarine->fuel += events[currentEvent].fuelEffect[selectedChoice];
 
+			// Show result message
+			showResult = true;
+			displayChoices = false;
+		}
+	} 
+	else if (showResult)
+	{
+		// After displaying result, move to the next event
+		currentEvent = getRandomEvent();
+		showResult = false; 
+	}
+	else if (e->keysym.sym == SDLK_SPACE) 
+	{
+		displayChoices = true;
+	}
+}
 
 void Input_Poll(void)
 {

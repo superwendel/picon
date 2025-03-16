@@ -4,13 +4,15 @@
 #include <SDL_ttf.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #include "defs.h"
 #include "structs.h"
 #include "pmath.h"
 
+#include "draw.c"
 #include "arena.c"
+#include "stage.c"
 #include "init.c"
 #include "input.c"
-#include "draw.c"
 #include "main.c"
