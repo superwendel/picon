@@ -6,7 +6,9 @@
 #define WINDOW_WIDTH 320
 #define WINDOW_HEIGHT 180
 #define PERSISTENT_ARENA_SIZE 1024 * 1024 // 1 MB
+#define LEVEL_ARENA_SIZE 1024 * 1024 // 1 MB
 #define TEXT_SIZE 16
+#define MAX_OBJECTS 5
 
 typedef unsigned char u8;
 typedef unsigned short u16;

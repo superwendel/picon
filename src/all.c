@@ -16,3 +16,4 @@
 #include "init.c"
 #include "input.c"
 #include "main.c"
+#include "submarine.c"

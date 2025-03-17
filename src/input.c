@@ -1,45 +1,28 @@
-extern App app;
 extern i32 selectedChoice;
 extern i32 currentEvent;
-extern bool displayChoices;
-extern bool showResult;
 extern StoryEvent events[];
 extern Submarine *player;
+extern Drone drone;
+extern enum GameState gameState;
 
-void doKeyUp(SDL_KeyboardEvent *e)
-{
-    if (e->repeat == 0)
-    {
-        if (e->keysym.scancode == SDL_SCANCODE_UP)
-        {
-            app.up = 0;
-        }
+PINLINE void handleDroneMovement(SDL_Event *e) {
+    if (!drone.active) return; // If drone isn't active, don't process movement
 
-        if (e->keysym.scancode == SDL_SCANCODE_DOWN)
-        {
-            app.down = 0;
-        }
-
-        if (e->keysym.scancode == SDL_SCANCODE_LEFT)
-        {
-            app.left = 0;
-        }
-
-        if (e->keysym.scancode == SDL_SCANCODE_RIGHT)
-        {
-            app.right = 0;
-        }
-
-		if (e->keysym.scancode == SDL_SCANCODE_LCTRL)
-        {
-            app.fire = 0;
+    if (e->type == SDL_KEYDOWN) 
+	{
+        switch (e->key.keysym.sym) 
+		{
+            case SDLK_UP:    drone.y -= drone.speed; break;
+            case SDLK_DOWN:  drone.y += drone.speed; break;
+            case SDLK_LEFT:  drone.x -= drone.speed; break;
+            case SDLK_RIGHT: drone.x += drone.speed; break;
         }
     }
 }
 
-void doKeyDown(SDL_KeyboardEvent *e)
+PINLINE void doKeyDown(SDL_KeyboardEvent *e)
 {
-	if (displayChoices) 
+	if (gameState == GS_CHOICE) 
 	{
 		if (e->keysym.sym == SDLK_DOWN) 
 		{
@@ -57,24 +40,21 @@ void doKeyDown(SDL_KeyboardEvent *e)
 			submarine->hull += events[currentEvent].hullEffect[selectedChoice];
 			submarine->fuel += events[currentEvent].fuelEffect[selectedChoice];
 
-			// Show result message
-			showResult = true;
-			displayChoices = false;
+			gameState = GS_RESULT;
 		}
 	} 
-	else if (showResult)
+	else if (gameState == GS_RESULT)
 	{
-		// After displaying result, move to the next event
 		currentEvent = getRandomEvent();
-		showResult = false; 
+		gameState = GS_DRONE;
 	}
 	else if (e->keysym.sym == SDLK_SPACE) 
 	{
-		displayChoices = true;
+		gameState = GS_CHOICE;
 	}
 }
 
-void Input_Poll(void)
+PINLINE void Input_Poll(void)
 {
 	SDL_Event event;
     while (SDL_PollEvent(&event)) 
@@ -87,11 +67,6 @@ void Input_Poll(void)
 			case SDL_KEYDOWN:
                 doKeyDown(&event.key);
                 break;
-
-            case SDL_KEYUP:
-                doKeyUp(&event.key);
-                break;
-
         }
     }
 }
